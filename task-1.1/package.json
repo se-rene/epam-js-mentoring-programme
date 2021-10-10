@@ -4,9 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "task1": "node index.js"
+    "task1": "npx nodemon index.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "nodemonConfig": {
+    "stdin": false
+  }
 }
