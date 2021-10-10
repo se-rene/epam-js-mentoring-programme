@@ -1,6 +1,6 @@
-const csv = require('csvtojson')
-const path = require("path");
-const fs = require('fs')
+import csv from "csvtojson"
+import path from 'path'
+import fs from 'fs'
 
 const csvFilePath = path.resolve('./csv/nodejs-hw1-ex1.csv');
 const textFileName = "file.txt"
