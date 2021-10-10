@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "task1": "npx nodemon index.js"
+    "task1": "npx nodemon --exec babel-node index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +14,10 @@
   },
   "nodemonConfig": {
     "stdin": false
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8"
   }
 }
