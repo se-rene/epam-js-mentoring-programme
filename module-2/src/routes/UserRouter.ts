@@ -8,7 +8,8 @@ const router = Router();
 router
 	.route("/users")
 	.get((req: Request, res: Response) => {
-		res.status(200).send(db.findAll());
+		const { limit = 10, loginSubstring = "" } = req.query;
+		res.status(200).send(db.findAll(Number(limit), loginSubstring.toString()));
 	})
 	.post((req: Request, res: Response) => {
 		const user: User = req.body;

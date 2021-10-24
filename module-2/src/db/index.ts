@@ -4,11 +4,17 @@ function db() {
 	let db: User[] = [];
 
 	function find(id: string) {
-		return db.find((user) => user.id === id);
+		return db.find((user) => user.id === id && !user.isDeleted);
 	}
 
-	function findAll() {
-		return db;
+	function findAll(limit: number, loginSubstring: string) {
+		let filteredDb = [...db].filter((user) => !user.isDeleted);
+		if (loginSubstring) {
+			filteredDb = filteredDb.filter((user) =>
+				user.login.includes(loginSubstring)
+			);
+		}
+		return filteredDb.slice(0, limit);
 	}
 
 	function insert(user: User) {
