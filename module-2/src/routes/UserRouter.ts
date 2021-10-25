@@ -1,28 +1,39 @@
 import { v4 as uuidv4 } from "uuid";
 import { Request, Response, Router } from "express";
-import db from "../db";
 import { User } from "../types/User";
+import { validateSchema } from "../middlewares";
+import { addUserSchema, updateUserSchema } from "../validation/UserSchema";
+import db from "../db";
 
 const router = Router();
 
-router
-	.route("/users")
-	.get((req: Request, res: Response) => {
-		const { limit = 10, loginSubstring = "" } = req.query;
-		res.status(200).send(db.findAll(Number(limit), loginSubstring.toString()));
-	})
-	.post((req: Request, res: Response) => {
+router.get("/users", (req: Request, res: Response) => {
+	const { limit = 10, loginSubstring = "" } = req.query;
+	res.status(200).send(db.findAll(Number(limit), loginSubstring.toString()));
+});
+
+router.post(
+	"/users",
+	validateSchema(addUserSchema),
+	(req: Request, res: Response) => {
 		const user: User = req.body;
 		user.id = uuidv4();
+		user.isDeleted = false;
 
 		db.insert(user);
 		res.status(201).send();
-	})
-	.put((req: Request, res: Response) => {
+	}
+);
+
+router.put(
+	"/users",
+	validateSchema(updateUserSchema),
+	(req: Request, res: Response) => {
 		const user: User = req.body;
 		db.update(user);
 		res.status(200).send();
-	});
+	}
+);
 
 router
 	.route("/users/:id")
