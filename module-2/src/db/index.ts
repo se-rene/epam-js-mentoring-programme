@@ -4,7 +4,7 @@ function db() {
 	let db: User[] = [];
 
 	function find(id: string) {
-		return db.find((user) => user.id === id && !user.isDeleted);
+		return db.find((user) => user.id === id && !user.isDeleted) || null;
 	}
 
 	function findAll(limit: number, loginSubstring: string) {

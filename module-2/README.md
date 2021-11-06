@@ -25,7 +25,7 @@ Write a simple REST service with CRUD operations for User entity.
 Add server-side validation for create/update operations of User entity:
 
 - all fields are required;
-- login validationis required;
+- login validation is required;
 - password must contain letters and numbers;
 - user’s age must be between 4 and 130.
 
@@ -38,3 +38,20 @@ Useful Links
 
 - [Setup TS with Babel](https://ageek.dev/ts-with-babel)
 - [Why use TS with Babel](https://iamturns.com/typescript-babel/)
+
+# Task 3.1
+
+- Install DB PostgreSQL on your machine or use a free web hosting services for PostgreSQL (https://www.heroku.com/postgresor https://www.elephantsql.com/plans.html).
+- Write SQL script which will create Users table in the DB and fill it in with predefined users’collection.
+- Configure your REST service to work with PostgreSQL.
+  − Use the sequelize package(http://docs.sequelizejs.com/)as ORM to work with PostgreSQL. As an alternative to sequelize, you can use more low-level query-builder library (http://knexjs.org/)
+
+# Task 3.2
+
+The service should adhere to 3-layer architecture principles (https://softwareontheroad.com/ideal-nodejs-project-structure/)
+and contain the following set of directories:
+
+|-routers / controllers
+|-services
+|-data-access
+|-models

@@ -1,9 +1,13 @@
-import { v4 as uuidv4 } from "uuid";
 import { Request, Response, Router } from "express";
-import { User } from "../types/User";
-import { validateSchema } from "../middlewares";
-import { addUserSchema, updateUserSchema } from "../validation/UserSchema";
 import db from "../db";
+import { validateSchema } from "../middlewares";
+import {
+	createUser,
+	deleteUser,
+	getUser,
+	updateUser,
+} from "../services/UserService";
+import { addUserSchema, updateUserSchema } from "../validation/UserSchema";
 
 const router = Router();
 
@@ -16,11 +20,7 @@ router.post(
 	"/users",
 	validateSchema(addUserSchema),
 	(req: Request, res: Response) => {
-		const user: User = req.body;
-		user.id = uuidv4();
-		user.isDeleted = false;
-
-		db.insert(user);
+		createUser(req.body);
 		res.status(201).send();
 	}
 );
@@ -29,8 +29,7 @@ router.put(
 	"/users",
 	validateSchema(updateUserSchema),
 	(req: Request, res: Response) => {
-		const user: User = req.body;
-		db.update(user);
+		updateUser(req.body);
 		res.status(200).send();
 	}
 );
@@ -39,11 +38,11 @@ router
 	.route("/users/:id")
 	.get((req: Request, res: Response) => {
 		const { id } = req.params;
-		res.status(200).send(db.find(id));
+		res.status(200).send(getUser(id));
 	})
 	.delete((req: Request, res: Response) => {
 		const { id } = req.params;
-		db.remove(id);
+		deleteUser(id);
 		res.status(200);
 	});
 
