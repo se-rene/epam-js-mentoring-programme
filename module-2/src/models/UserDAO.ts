@@ -36,5 +36,3 @@ UserDAO.init(
 );
 
 export default UserDAO;
-
-console.log("ayyyA", UserDAO === sequelize.models.User); // true

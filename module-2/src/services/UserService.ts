@@ -19,6 +19,5 @@ export function deleteUser(id: string) {
 }
 
 export async function getUser(id: string) {
-	// return db.find(id);
 	return await selectUser(id);
 }
