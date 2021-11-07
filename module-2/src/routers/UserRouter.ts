@@ -19,9 +19,9 @@ router.get("/users", (req: Request, res: Response) => {
 router.post(
 	"/users",
 	validateSchema(addUserSchema),
-	(req: Request, res: Response) => {
-		createUser(req.body);
-		res.status(201).send();
+	async (req: Request, res: Response) => {
+		const newUser = await createUser(req.body);
+		res.status(201).send(newUser);
 	}
 );
 

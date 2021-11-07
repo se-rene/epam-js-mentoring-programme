@@ -11,7 +11,7 @@ const addUserSchema = Joi.object({
 });
 
 const updateUserSchema = addUserSchema.keys({
-	id: Joi.string().alphanum().required(),
+	id: Joi.string().required(),
 	isDeleted: Joi.boolean().required(),
 });
 
