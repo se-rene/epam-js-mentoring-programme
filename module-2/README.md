@@ -55,3 +55,24 @@ and contain the following set of directories:
 |-services
 |-data-access
 |-models
+
+
+
+# Task 4.1
+Add Group entity to already existing REST service with CRUD operations
+- The Group entity should have the following properties (you can use UUID as Group id):
+- The service should provide the following CRUD operations for Group:
+    1. get group by id;
+    2. get all groups;
+    3. create and update a group;
+    4. remove group (hard delete–group data is fully removed from the DB).
+- Storing of groups data should be done in PostgreSQL in Groups table.
+- The service should follow the principles of 3-layer architecture.
+
+# Task 4.2
+Link User records in one table with Group records in another table.
+- Add a UserGroup table(“many-to-many” relationship) which will store the data describingwhich users are assigned to which group.
+- If any record gets removed from the DB, then all linked records should be removed from UserGroupas well.
+
+# Task 4.3
+Add addUsersToGroup(groupId, userIds)method which will allow adding users to a certain group. Use transactionsto save records in DB.

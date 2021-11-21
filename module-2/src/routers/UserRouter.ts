@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
-import db from "../db";
 import { validateSchema } from "../middlewares";
 import {
+	getUsers,
 	createUser,
 	deleteUser,
 	getUser,
@@ -11,9 +11,8 @@ import { addUserSchema, updateUserSchema } from "../validation/UserSchema";
 
 const router = Router();
 
-router.get("/users", (req: Request, res: Response) => {
-	const { limit = 10, loginSubstring = "" } = req.query;
-	res.status(200).send(db.findAll(Number(limit), loginSubstring.toString()));
+router.get("/users", async (req: Request, res: Response) => {
+	res.status(200).send(await getUsers());
 });
 
 router.post(

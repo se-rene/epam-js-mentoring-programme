@@ -1,7 +1,11 @@
 import UserDAO from "../models/UserDAO";
 import { User } from "../types/User";
 
-export async function selectUser(id: string) {
+export async function findAll() {
+	return UserDAO.findAll();
+}
+
+export function findUser(id: string) {
 	return UserDAO.findOne({
 		where: {
 			id,
