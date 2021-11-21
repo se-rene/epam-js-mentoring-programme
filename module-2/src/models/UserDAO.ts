@@ -1,8 +1,8 @@
 import sequelize from "../db/pg";
-import { DataTypes, Model } from "sequelize";
+import { DataTypes } from "sequelize";
 
-class UserDAO extends Model {}
-UserDAO.init(
+export default sequelize.define(
+	"User",
 	{
 		id: {
 			type: DataTypes.UUID,
@@ -29,10 +29,6 @@ UserDAO.init(
 	},
 	{
 		// Other model options go here
-		sequelize, // We need to pass the connection instance
-		modelName: "User", // We need to choose the model name
 		timestamps: true,
 	}
 );
-
-export default UserDAO;

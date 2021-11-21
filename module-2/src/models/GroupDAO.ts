@@ -1,8 +1,8 @@
 import sequelize from "../db/pg";
-import { DataTypes, Model } from "sequelize";
+import { DataTypes } from "sequelize";
 
-class GroupDAO extends Model {}
-GroupDAO.init(
+export default sequelize.define(
+	"Group",
 	{
 		id: {
 			type: DataTypes.UUID,
@@ -22,10 +22,6 @@ GroupDAO.init(
 	},
 	{
 		// Other model options go here
-		sequelize, // We need to pass the connection instance
-		modelName: "Group", // We need to choose the model name
 		timestamps: true,
 	}
 );
-
-export default GroupDAO;
