@@ -1,16 +1,14 @@
+import sequelize from "../db/pg";
 import GroupDAO from "../models/GroupDAO";
+import UserDAO from "../models/UserDAO";
 import { Group } from "../types/Group";
 
 export function findAll() {
-	return GroupDAO.findAll();
+	return GroupDAO.findAll({ include: UserDAO });
 }
 
 export function findGroup(id: string) {
-	return GroupDAO.findOne({
-		where: {
-			id,
-		},
-	});
+	return GroupDAO.findByPk(id, { include: UserDAO });
 }
 
 export async function insertGroup(groupDTO: Group) {
@@ -36,4 +34,14 @@ export async function saveGroup(groupDTO: Group) {
 export async function removeGroup(id: string) {
 	const group = await GroupDAO.build({ id });
 	await group.destroy();
+}
+
+export async function insertUsersToGroup(groupId: string, userIds: string[]) {
+	try {
+		const group = await findGroup(groupId);
+		// @ts-ignore
+		group.addUsers(userIds);
+	} catch (error) {
+		throw error;
+	}
 }

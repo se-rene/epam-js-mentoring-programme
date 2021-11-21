@@ -6,11 +6,7 @@ export async function findAll() {
 }
 
 export function findUser(id: string) {
-	return UserDAO.findOne({
-		where: {
-			id,
-		},
-	});
+	return UserDAO.findByPk(id);
 }
 
 export async function insertUser(userDTO: User) {
@@ -23,8 +19,8 @@ export async function insertUser(userDTO: User) {
 	return newUser;
 }
 
-export async function saveUser(userDTO: User) {
-	const user = await UserDAO.update(
+export function saveUser(userDTO: User) {
+	return UserDAO.update(
 		{
 			login: userDTO.login,
 			password: userDTO.password,

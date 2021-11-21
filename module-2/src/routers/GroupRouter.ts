@@ -35,14 +35,14 @@ router.put(
 
 router
 	.route("/groups/:id")
-	.get((req: Request, res: Response) => {
+	.get(async (req: Request, res: Response) => {
 		const { id } = req.params;
-		res.status(200).send(getGroup(id));
+		res.status(200).send(await getGroup(id));
 	})
-	.delete((req: Request, res: Response) => {
+	.delete(async (req: Request, res: Response) => {
 		const { id } = req.params;
-		deleteGroup(id);
-		res.status(200);
+		await deleteGroup(id);
+		res.status(200).send();
 	});
 
 export default router;

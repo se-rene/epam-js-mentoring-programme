@@ -1,8 +1,8 @@
 import sequelize from "../db/pg";
 import { DataTypes } from "sequelize";
 
-export default sequelize.define(
-	"Group",
+const GroupDAO = sequelize.define(
+	"group",
 	{
 		id: {
 			type: DataTypes.UUID,
@@ -18,6 +18,7 @@ export default sequelize.define(
 				DataTypes.ENUM("READ", "WRITE", "DELETE", "SHARE", "UPLOAD_FILES")
 			),
 			allowNull: false,
+			defaultValue: [],
 		},
 	},
 	{
@@ -25,3 +26,5 @@ export default sequelize.define(
 		timestamps: true,
 	}
 );
+
+export default GroupDAO;

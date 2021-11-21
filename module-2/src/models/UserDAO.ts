@@ -1,8 +1,9 @@
 import sequelize from "../db/pg";
 import { DataTypes } from "sequelize";
+import GroupDAO from "./GroupDAO";
 
-export default sequelize.define(
-	"User",
+const UserDAO = sequelize.define(
+	"user",
 	{
 		id: {
 			type: DataTypes.UUID,
@@ -32,3 +33,8 @@ export default sequelize.define(
 		timestamps: true,
 	}
 );
+
+UserDAO.belongsToMany(GroupDAO, { through: "users_groups" });
+GroupDAO.belongsToMany(UserDAO, { through: "users_groups" });
+
+export default UserDAO;
