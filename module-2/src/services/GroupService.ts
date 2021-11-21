@@ -1,10 +1,15 @@
 import { Group } from "../types/Group";
 import {
+	findAll,
 	insertGroup,
-	selectGroup,
+	findGroup,
 	saveGroup,
 	removeGroup,
 } from "../data-access/GroupRepository";
+
+export function getGroups() {
+	return findAll();
+}
 
 export function createGroup(user: Group) {
 	return insertGroup(user);
@@ -19,5 +24,5 @@ export function deleteGroup(id: string) {
 }
 
 export function getGroup(id: string) {
-	return selectGroup(id);
+	return findGroup(id);
 }

@@ -1,7 +1,11 @@
 import GroupDAO from "../models/GroupDAO";
 import { Group } from "../types/Group";
 
-export async function selectGroup(id: string) {
+export function findAll() {
+	return GroupDAO.findAll();
+}
+
+export function findGroup(id: string) {
 	return GroupDAO.findOne({
 		where: {
 			id,
