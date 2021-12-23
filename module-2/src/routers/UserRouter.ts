@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { validateSchema } from "../middlewares";
+import { validateAuth, validateSchema } from "../middlewares";
 import {
 	getUsers,
 	createUser,
@@ -10,22 +10,23 @@ import {
 import { addUserSchema, updateUserSchema } from "../validation/UserSchema";
 
 const router = Router();
+router.use(validateAuth);
 
-router.get("/users", async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
 	res.status(200).send(await getUsers());
 });
 
 router.post(
-	"/users",
+	"/",
 	validateSchema(addUserSchema),
 	async (req: Request, res: Response) => {
-		const newUser = await createUser(req.body);
-		res.status(201).send(newUser);
+		await createUser(req.body);
+		res.status(201).send();
 	}
 );
 
 router.put(
-	"/users",
+	"/",
 	validateSchema(updateUserSchema),
 	async (req: Request, res: Response) => {
 		await updateUser(req.body);
@@ -34,7 +35,7 @@ router.put(
 );
 
 router
-	.route("/users/:id")
+	.route("/:id")
 	.get(async (req: Request, res: Response) => {
 		const { id } = req.params;
 		res.status(200).send(await getUser(id));

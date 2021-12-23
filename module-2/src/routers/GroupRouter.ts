@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { validateSchema } from "../middlewares";
+import { validateAuth, validateSchema } from "../middlewares";
 import {
 	getGroups,
 	createGroup,
@@ -10,13 +10,14 @@ import {
 import { addGroupSchema, updateGroupSchema } from "../validation/GroupSchema";
 
 const router = Router();
+router.use(validateAuth);
 
-router.get("/groups", async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
 	res.status(200).send(await getGroups());
 });
 
 router.post(
-	"/groups",
+	"/",
 	validateSchema(addGroupSchema),
 	async (req: Request, res: Response) => {
 		const newGroup = await createGroup(req.body);
@@ -25,7 +26,7 @@ router.post(
 );
 
 router.put(
-	"/groups",
+	"/",
 	validateSchema(updateGroupSchema),
 	(req: Request, res: Response) => {
 		updateGroup(req.body);
@@ -34,7 +35,7 @@ router.put(
 );
 
 router
-	.route("/groups/:id")
+	.route("/:id")
 	.get(async (req: Request, res: Response) => {
 		const { id } = req.params;
 		res.status(200).send(await getGroup(id));

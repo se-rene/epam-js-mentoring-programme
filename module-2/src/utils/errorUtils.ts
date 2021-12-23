@@ -1,5 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import logger from "../logger";
+import GenericError from "../constants/errors/GenericError";
+
+export function handleAsync(fn: Function) {
+	return (req: Request, res: Response, next: NextFunction) =>
+		Promise.resolve(fn(req, res, next)).catch(next);
+}
 
 // it is not safe to resume normal operation after 'uncaughtException',
 // because the system becomes corrupted:
@@ -20,6 +26,14 @@ export function handleError(
 	res: Response,
 	next: NextFunction
 ) {
+	let statusCode = 500;
+	let errorMessage = "Oops, an unexpected error occurred.";
+
+	if (err instanceof GenericError) {
+		statusCode = err.statusCode;
+		errorMessage = err.message;
+	}
+
 	logger.error({
 		method: req.method,
 		args: {
@@ -29,5 +43,6 @@ export function handleError(
 		url: req.url,
 		error: err.stack,
 	});
-	res.status(500).send("Oops, an unexpected error occurred.");
+
+	res.status(statusCode).send({ statusCode, errorMessage });
 }

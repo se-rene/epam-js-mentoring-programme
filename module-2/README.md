@@ -59,38 +59,65 @@ and contain the following set of directories:
 --
 
 # Task 4.1
+
 Add Group entity to already existing REST service with CRUD operations
+
 - The Group entity should have the following properties (you can use UUID as Group id):
 - The service should provide the following CRUD operations for Group:
-    1. get group by id;
-    2. get all groups;
-    3. create and update a group;
-    4. remove group (hard delete–group data is fully removed from the DB).
+  1. get group by id;
+  2. get all groups;
+  3. create and update a group;
+  4. remove group (hard delete–group data is fully removed from the DB).
 - Storing of groups data should be done in PostgreSQL in Groups table.
 - The service should follow the principles of 3-layer architecture.
 
 # Task 4.2
+
 Link User records in one table with Group records in another table.
+
 - Add a UserGroup table(“many-to-many” relationship) which will store the data describingwhich users are assigned to which group.
 - If any record gets removed from the DB, then all linked records should be removed from UserGroupas well.
 
 # Task 4.3
-Add addUsersToGroup(groupId, userIds)method which will allow adding users to a certain group. Use transactionsto save records in DB.
 
+Add addUsersToGroup(groupId, userIds)method which will allow adding users to a certain group. Use transactionsto save records in DB.
 
 --
 
 # Task 5.1
+
 Add express middlewarewhich will log which service method has been invoked and which arguments have been passed to it.
 
-
 # Task 5.2
+
 - Add express middlewarewhich will log all unhandled errors and return a standard message with HTTP code 500 (Internal Server Error). (Remark: Do not modify the status code and the message for other errors like validation errors from the previous task.
 - Add error handling to process.on(‘uncaughtException’,...).
 - Add Unhandled promiserejection listener to log errors.
 
 # Task 5.3
+
 Every method in the controllers should log the errors which should include the following information:
+
 - method name;
 - arguments which have been passed to the method;
 - error message.
+
+--
+
+# Task 6.1
+
+Add authorization to the already existing **REST** service.
+
+- Add `login(username, password)` method which should return **JWT** token.
+- Add a middleware which will proxy all the requests (except **login**) and check that **HTTP
+  Authorization** header has the correct value of **JWT** token.
+- In case of the **HTTP Authorization** header is absent in the request, the **middleware** should
+  stop further controller method execution and return **HTTP 401** code (**Unauthorized Error**) and
+  standard error message.
+- In case of **HTTP Authorization** header has invalid **JWT** token in the request, the middleware
+  should return **HTTP** code **403** (**Forbidden Error**) and standard error message.
+
+# Task 6.2
+
+Add **CORS middleware** to access service methods from WEB applications hosted on another domains
+(https://github.com/expressjs/cors).

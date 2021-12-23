@@ -1,25 +1,31 @@
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
+import cors from "cors";
 import { init } from "./src/db/pg";
 import logger from "./src/logger";
 import { requestLogger } from "./src/middlewares";
 import GroupRouter from "./src/routers/GroupRouter";
 import UserRouter from "./src/routers/UserRouter";
+import AuthRouter from "./src/routers/AuthRouter";
 import {
 	handleError,
 	handleUncaughtException,
 	handleUnhandledException,
-} from "./src/utils/errorHandlers";
+} from "./src/utils/errorUtils";
 
 const app = express();
 const port = 3000;
 
+// App middlewares
+app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
-app.use(UserRouter);
-app.use(GroupRouter);
-app.get("/", function (req, res) {
-	throw new Error("BROKEN"); // Express will catch this on its own.
-});
+
+// Routes
+app.use("/users", UserRouter);
+app.use("/groups", GroupRouter);
+app.use("/auth", AuthRouter);
+
+// Error middleware and handlers
 app.use(handleError);
 
 process
