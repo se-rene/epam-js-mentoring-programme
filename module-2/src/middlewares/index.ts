@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { Err, Schema } from "joi";
+import { Schema } from "joi";
+import logger from "../logger";
 
 export function validateSchema(schema: Schema) {
 	return async (req: Request, res: Response, next: NextFunction) => {
@@ -10,4 +11,17 @@ export function validateSchema(schema: Schema) {
 			res.status(400).send((err as Error).message);
 		}
 	};
+}
+
+export function requestLogger(req: Request, res: Response, next: NextFunction) {
+	logger.info({
+		method: req.method,
+		args: {
+			params: req.params,
+			body: req.body,
+		},
+		url: req.url,
+	});
+
+	next();
 }

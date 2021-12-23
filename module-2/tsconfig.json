@@ -17,7 +17,9 @@
 		"declaration": true,
 		"emitDeclarationOnly": false,
 		// Ensure that Babel can safely transpile files in the TypeScript project
-		"isolatedModules": true
+		"isolatedModules": true,
+		// Base directory
+		"baseUrl": "./src"
 	},
 	"include": [
 		"*" // <-- change this to where your source files are

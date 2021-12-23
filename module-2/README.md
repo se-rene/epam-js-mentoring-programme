@@ -56,7 +56,7 @@ and contain the following set of directories:
 |-data-access
 |-models
 
-
+--
 
 # Task 4.1
 Add Group entity to already existing REST service with CRUD operations
@@ -76,3 +76,21 @@ Link User records in one table with Group records in another table.
 
 # Task 4.3
 Add addUsersToGroup(groupId, userIds)method which will allow adding users to a certain group. Use transactionsto save records in DB.
+
+
+--
+
+# Task 5.1
+Add express middlewarewhich will log which service method has been invoked and which arguments have been passed to it.
+
+
+# Task 5.2
+- Add express middlewarewhich will log all unhandled errors and return a standard message with HTTP code 500 (Internal Server Error). (Remark: Do not modify the status code and the message for other errors like validation errors from the previous task.
+- Add error handling to process.on(‘uncaughtException’,...).
+- Add Unhandled promiserejection listener to log errors.
+
+# Task 5.3
+Every method in the controllers should log the errors which should include the following information:
+- method name;
+- arguments which have been passed to the method;
+- error message.

@@ -1,7 +1,7 @@
 {
   "name": "module-2",
   "version": "1.0.0",
-  "description": "Module 2 - Express.js",
+  "description": "Module 4-7 - Express.js",
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --ext .ts",
@@ -20,7 +20,8 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.9.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
@@ -38,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "babel-eslint": "^10.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^8.1.0",
     "ts-node": "^10.4.0",
     "tslib": "^2.3.1",
